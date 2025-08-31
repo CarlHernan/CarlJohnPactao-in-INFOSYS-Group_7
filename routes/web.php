@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 
-Route::apiResource('products', ProductController::class);
+Route::apiResource('admin/products', ProductController::class);
 
 Route::get('/', function () {
     return view('landing');
