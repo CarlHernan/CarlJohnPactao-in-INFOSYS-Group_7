@@ -9,8 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         // Drop cache & jobs related tables
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
         Schema::dropIfExists('jobs');
         Schema::dropIfExists('job_batches');
         Schema::dropIfExists('failed_jobs');

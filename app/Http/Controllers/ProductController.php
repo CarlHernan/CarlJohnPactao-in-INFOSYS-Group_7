@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 
 class ProductController extends Controller
-{
+{       
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Product::all();
+        return view('landing');
     }
 
     /**
@@ -25,14 +25,14 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
+            'is_available' => 'required|boolean',
             'category' => 'required|string|max:100',
             'image_path' => 'required',
         ]);
 
         $product = Product::create($fields);
 
-        return ['product' => $product];
+        return $product;
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return $product;
     }
 
     /**
@@ -48,7 +48,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $fields = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'is_available' => 'required|boolean',
+            'category' => 'required|string|max:100',
+            'image_path' => 'required',
+        ]);
+
+        $product->update($fields);
+
+        return $product;
     }
 
     /**
@@ -56,6 +67,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return [ 'message' => 'Product deleted Successfully' ];
     }
 }
