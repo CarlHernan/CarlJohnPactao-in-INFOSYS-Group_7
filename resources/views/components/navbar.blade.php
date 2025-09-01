@@ -1,8 +1,9 @@
 <nav
-    class="absolute top-0 inset-x-0 z-50 px-6 py-4 flex items-center justify-between font-montserrat bg-transparent shadow-md">
+    class="border-b-1 border-b-gray-300 top-0 inset-x-0 z-50 px-6 py-1 md:py-2  flex items-center justify-between font-montserrat ">
 
-    <div class="flex items-center gap-4">
-        <div class="font-bold text-lg text-black">QuickEat</div>
+    <div class="flex items-center gap-1 mb-1  ">
+        <img src="{{ asset('images/logo.png') }}" alt="PingganPH logo" loading="lazy" class="h-6 ">
+        <div class="font-bold text-lg mt-2 text-black">Pinggan<span class="text-emerald-800">PH</span></div>
     </div>
 
     <div class="flex items-center md:gap-8 gap-2 ">
@@ -10,29 +11,35 @@
             <ul class="flex gap-8 rounded-md px-2 py-1 items-center">
                 <li>
                     <a href="/"
-                       class="{{ request()->routeIs('/') ? 'text-black font-bold' : 'hover:scale-105' }} text-black">Home</a>
+                       class="{{ request()->Is('/') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-150' : 'text-emerald-900 transform transition-transform duration-150 hover:scale-110 inline-block ' }} ">Home</a>
+                </li>
+              <li>
+                  <a href="/menu"
+                     class="{{ request()->Is('menu*') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-150' : 'text-emerald-900 inline-block transform transition-transform duration-150 hover:scale-110' }}">Menu</a>
+              </li>
+                <li>
+                    <a href="/orders"
+                       class="{{ request()->Is('orders*') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-15' : 'text-emerald-900 transform duration-150 hover:scale-110 inline-block' }} ">Orders</a>
                 </li>
                 <li>
-                    <a href="#"
-                       class="{{ request()->routeIs('') ? 'text-white font-bold' : 'hover:scale-120' }} text-black">Products</a>
-                </li>
-                <li>
-                    <a href="#"
-                       class="{{ request()->routeIs('') ? 'text-white font-bold' : 'hover:scale-105' }} text-black">Orders</a>
+                    <a href="/about"
+                       class="{{ request()->Is('about*') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-15' : 'text-emerald-900 transform duration-150 hover:scale-110 inline-block' }} ">About</a>
                 </li>
             </ul>
         </div>
 
-        <button class="text-black ">
+
+    </div>
+
+    <div class="flex items-center ">
+        <button class="text-emerald-900 md:border-hidden border-r-1 border-gray-300 pr-1">
             @include('components.icons.cart')
         </button>
-        <button id="menuBtn" class="md:hidden text-black border-l border-black pl-2">
+        <button id="menuBtn" class="md:hidden pl-1  text-emerald-900 border-black">
             @include('components.icons.hamburger')
         </button>
 
     </div>
-
-    {{-- navv modal sa mobile --}}
     <div id="navModal" class="hidden fixed inset-0 z-40">
         {{-- para kung i tap mag close yung modal, no need i click yung close button --}}
         <div id="modalBackdrop" class="fixed inset-0"></div>

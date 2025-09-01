@@ -6,8 +6,16 @@ use App\Http\Controllers\ProfileController;
 
 Route::apiResource('admin/products', ProductController::class);
 
+
+//temp routes
 Route::get('/', function () {
     return view('landing');
+});
+Route::get('/menu', function () {
+    return view('menu');
+});
+Route::get('/orders', function () {
+    return view('orders');
 });
 
 Route::prefix('admin')->get('/dashboard', function () {
