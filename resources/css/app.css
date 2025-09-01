@@ -11,6 +11,7 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/*my custom stlyes*/
 @theme {
     --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
@@ -21,7 +22,6 @@
     --color-custom-yellow: #f6b75c ;
 }
 
-/*my custom stlyes*/
 body {
     font-family: var(--font-merriweather), 'serif';
     background-color: var(--color-primary);
@@ -29,7 +29,7 @@ body {
     -ms-overflow-style: none;
 
 }
-
+/*hide scrollbar/*/
 ::-webkit-scrollbar {
     display: none;
 }
