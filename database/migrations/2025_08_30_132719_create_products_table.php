@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->boolean('is_available');
+            $table->boolean('is_featured')->nullable();
             $table->string('category');
             $table->string('image_path');
             $table->timestamps();

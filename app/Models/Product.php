@@ -17,11 +17,14 @@ class Product extends Model
         'description',
         'price',
         'is_available',
+        'is_featured',
         'category',
         'image_path',
     ];
 
     protected $casts = [
-        'available' => 'boolean', // ensures true/false instead of 1/0
+        'is_available' => 'boolean', // ensures true/false instead of 1/0
+        'is_featured' => 'boolean', //gaya gaya lang
     ];
+
 }

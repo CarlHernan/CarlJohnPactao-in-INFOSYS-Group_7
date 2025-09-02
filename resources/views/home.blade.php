@@ -1,13 +1,18 @@
 <x-layout title="QuickCart" full>
-    <div class="min-h-screen w-screen overflow-y-auto flex flex-col gap-4">
+    <div class="min-h-screen w-screen overflow-y-auto flex flex-col ">
         <section
-            class="min-h-screen relative flex flex-col items-center justify-center pt-16 text-center gap-8 p-0 md:px-6 md:p-0">
-            <h1 class="text-emerald-900 text-2xl md:text-3xl lg:text-6xl max-w-6xl mt-8 ">PingganPH: Simply The Best
+            class="min-h-screen relative flex flex-col bg-stone-300 bg-gradient-to-b from-white/50 to-black/50 bg-blend-soft-light items-center justify-center pt-16 text-center gap-8 p-0 md:px-6 md:p-0">
+            <h1 class="text-emerald-900 font-bold text-2xl font-merriweather md:text-3xl lg:text-6xl max-w-6xl mt-8 ">PingganPH: Simply The Best
                 Karinderya in Kabacan!</h1>
             <h2 class="lg:text-2xl  font-bold ">Todays Paboritos:</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-
+                @foreach($featuredProducts as $products)
+                <x-components.product-card
+                    :title="$products->name"
+                    :price="$products->price"
+                    :description="$products->description"
+                    :image_path="asset('storage/' . $products->image_path)"/>
+                @endForEach
             </div>
         </section>
 

@@ -3,20 +3,23 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PageController;
 
 Route::apiResource('admin/products', ProductController::class);
 
+//page controller v1 -perez
+Route::get('/home', [PageController::class, 'home'])->name('home');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/menu', [PageController::class, 'menu'])->name('menu');
+Route::get('/orders', [PageController::class, 'orders'])->name('orders');
 
-//temp routes
 Route::get('/', function () {
-    return view('landing');
+    return redirect('/home');
 });
-Route::get('/menu', function () {
-    return view('menu');
-});
-Route::get('/orders', function () {
-    return view('orders');
-});
+
+
+
+
 
 Route::prefix('admin')->get('/dashboard', function () {
     return view('dashboard');

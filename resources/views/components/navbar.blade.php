@@ -1,6 +1,6 @@
 <nav
-    class="border-b-1 border-b-gray-300 top-0 inset-x-0 z-50 px-6 py-1 md:py-2  flex items-center justify-between font-montserrat ">
-
+    class="bg-transparent backdrop-blur-lg sticky top-0 inset-x-0 z-50 px-6 py-1 md:py-2 flex items-center justify-between font-montserrat border-0 shadow-md">
+    <!-- ...rest of your navbar code... -->
     <div class="flex items-center gap-1 mb-1  ">
         <img src="{{ asset('images/logo.png') }}" alt="PingganPH logo" loading="lazy" class="h-6 ">
         <div class="font-bold text-lg mt-2 text-black">Pinggan<span class="text-emerald-800">PH</span></div>
@@ -10,13 +10,13 @@
         <div class="hidden md:flex items-center">
             <ul class="flex gap-8 rounded-md px-2 py-1 items-center">
                 <li>
-                    <a href="/"
-                       class="{{ request()->Is('/') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-150' : 'text-emerald-900 transform transition-transform duration-150 hover:scale-110 inline-block ' }} ">Home</a>
+                    <a href="/home"
+                       class="{{ request()->Is('home') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-150' : 'text-emerald-900 transform transition-transform duration-150 hover:scale-110 inline-block ' }} ">Home</a>
                 </li>
-              <li>
-                  <a href="/menu"
-                     class="{{ request()->Is('menu*') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-150' : 'text-emerald-900 inline-block transform transition-transform duration-150 hover:scale-110' }}">Menu</a>
-              </li>
+                <li>
+                    <a href="/menu"
+                       class="{{ request()->Is('menu*') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-150' : 'text-emerald-900 inline-block transform transition-transform duration-150 hover:scale-110' }}">Menu</a>
+                </li>
                 <li>
                     <a href="/orders"
                        class="{{ request()->Is('orders*') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-15' : 'text-emerald-900 transform duration-150 hover:scale-110 inline-block' }} ">Orders</a>
