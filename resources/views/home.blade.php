@@ -17,17 +17,13 @@
         </section>
 
         <section class=" bg-amber-500 front py-12 px-6 lg:px-20 flex flex-col lg:flex-row items-center lg:items-start gap-10">
-            <!-- Left Content -->
             <div class="lg:w-1/2 space-y-6">
-                <!-- Headline -->
                 <h1 class="font-merriweather text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">Your Favorite
                     Karinderya, Now Online.</h1>
 
-                <!-- Subheadline -->
                 <p class="font-poppins text-gray-700 text-lg">Enjoy homestyle meals made simple. Order anytime,
                     anywhere—fresh, affordable, and cooked just like home.</p>
 
-                <!-- List -->
                 <ul class="space-y-4 text-lg font-merriweather text-gray-800">
                     <li class="flex items-start gap-3">
                         <span class="text-xl">*</span>
@@ -47,13 +43,11 @@
                     </li>
                 </ul>
 
-                <!-- Button -->
                 <div class="pt-4">
                     <x-menuButton href="/menu e">View Menu</x-menuButton>
                 </div>
             </div>
 
-            <!-- Right Images -->
             <div class="flex flex-col justify-center items-center max-w-1/2">
                 <img src="{{asset('/images/heroFInalnt.png')}}" alt="Food" class="w-full h-full object-cover">
             </div>
