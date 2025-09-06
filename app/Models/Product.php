@@ -30,4 +30,11 @@ class Product extends Model
         'price' => 'decimal:2',
     ];
 
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName()
+    {
+        return 'menu_id';
+    }
 }

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\AdminDashboardController;
 
 //public usr pages
 Route::get('/home', [PageController::class, 'home'])->name('home');
@@ -20,8 +19,13 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
 
 //    end points
     Route::prefix('dashboard')->group(function () {
-        Route::get('/menus', [AdminDashboardController::class, 'menus'])->name('admin.dashboard.menus');
-        Route::get('/orders', [AdminDashboardController::class, 'orders'])->name('admin.dashboard.orders');
+        Route::get('/menus', [ProductController::class, 'menus'])->name('admin.dashboard.menus');
+        Route::get('/menus/create', [ProductController::class, 'create'])->name('admin.dashboard.menus.create');
+        Route::post('/menus', [ProductController::class, 'store'])->name('admin.dashboard.menus.store');
+        Route::get('/menus/{product}/edit', [ProductController::class, 'edit'])->name('admin.dashboard.menus.edit');
+        Route::put('/menus/{product}', [ProductController::class, 'update'])->name('admin.dashboard.menus.update');
+        Route::delete('/menus/{product}', [ProductController::class, 'destroy'])->name('admin.dashboard.menus.destroy');
+        Route::get('/orders', [ProductController::class, 'orders'])->name('admin.dashboard.orders');
     });
 
 //    profile management
