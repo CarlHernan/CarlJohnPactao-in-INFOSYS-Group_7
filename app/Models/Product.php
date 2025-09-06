@@ -10,10 +10,12 @@ class Product extends Model
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
-    protected $primaryKey = 'product_id';  // Magsabi sa Eloquent na ang primary key is 'product_id' imbes na 'id'
+    protected $table = 'menu';
+
+    protected $primaryKey = 'menu_id';  // Magsabi sa Eloquent na ang primary key is 'product_id' imbes na 'id'
 
     protected $fillable = [
-        'name',
+        'dish_name',
         'description',
         'price',
         'is_available',
@@ -25,6 +27,7 @@ class Product extends Model
     protected $casts = [
         'is_available' => 'boolean', // ensures true/false instead of 1/0
         'is_featured' => 'boolean', //gaya gaya lang
+        'price' => 'decimal:2',
     ];
 
 }

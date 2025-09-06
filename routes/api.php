@@ -6,14 +6,10 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Container\Attributes\Auth;
 use App\Http\Controllers\ProductController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
+//api goes here, separate ang api at FE endpoints for cleanliness.
+Route::prefix('admin')->group(function () {
+    Route::apiResource('menu', ProductController::class)->parameters(['menu' => 'product']);
 
-// Route::apiResource('products', ProductController::class);  
-
-// Route::post('/register', [AuthController::class, 'register']);
-// Route::post('/login', [AuthController::class, 'login']);
-// Route::post('/logout', [AuthController::class, 'logout']);
-
-// "All routes are placed in web.php since this project is a Blade-based web app. API routes are not used."
+        /*since gi query nato, uselss sya, for good practices lang*/
+    Route::get('menu/featured', [ProductController::class, 'featured']);
+});

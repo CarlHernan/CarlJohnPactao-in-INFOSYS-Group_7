@@ -11,9 +11,8 @@ class PageController extends Controller
 {
     public function home()
     {
-        $featuredProducts = Product::where('is_featured', true)->take(3)->get();
-        $product = Product::all();
-        return view('home', compact('featuredProducts', 'product'));
+        $featured = Product::where('is_featured', true)->take(3)->get();
+        return view('home', compact('featured'));
     }
 
     public function about()
@@ -23,8 +22,8 @@ class PageController extends Controller
 
     public function menu()
     {
-        $products = Product::all();
-        return view('menu', compact('products'));
+        $menu = Product::all();
+        return view('menu', compact('menu'));
     }
 
     public function orders()
