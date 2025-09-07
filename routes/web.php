@@ -5,6 +5,12 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 
+/*
+ * guys this page is for routing the web pages only, if you guys wanna
+ * add api routes please go to api.php file
+  */
+
+
 //public usr pages
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -15,9 +21,12 @@ Route::get('/', function () { return redirect('/home'); });
 
 // Admin dashboard main page
 Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
+//    fix or fallback kung i type lang ng user kay /admin
+    Route::get('/', function () { return redirect('admin/dashboard'); })->name('dashboard');
+
     Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
 
-//    end points
+//    end points for menu dashboard
     Route::prefix('dashboard')->group(function () {
         Route::get('/menus', [ProductController::class, 'menus'])->name('admin.dashboard.menus');
         Route::get('/menus/create', [ProductController::class, 'create'])->name('admin.dashboard.menus.create');
