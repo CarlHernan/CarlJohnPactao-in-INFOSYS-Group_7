@@ -1,0 +1,5 @@
+<footer class="bg-gray-900 text-gray-400 text-center py-4 text-sm">
+    All Rights Reserved by <span class="text-gray-200">Nice Admin</span>.  
+    Designed and Developed by 
+    <a href="https://wrappixel.com" class="text-blue-400 hover:underline">WrapPixel</a>.
+</footer>
