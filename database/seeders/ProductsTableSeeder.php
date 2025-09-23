@@ -9,7 +9,7 @@ class ProductsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('menu')->insert([
+        /*DB::table('menu')->insert([
             [
                 'dish_name' => 'Adobo',
                 'description' => 'Classic pork or chicken stew braised in soy sauce, vinegar, and spices.',
@@ -76,6 +76,6 @@ class ProductsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ]);*/
     }
 }
