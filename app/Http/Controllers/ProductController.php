@@ -17,7 +17,7 @@ class ProductController extends Controller
 
    public function menus()
     {
-        $products = Product::orderByDesc('created_at')->paginate(20);
+        $products = Product::with('category')->orderByDesc('created_at')->paginate(20);
         return view('admin.dashboard.menus', compact('products'));
     }
 
@@ -40,7 +40,7 @@ class ProductController extends Controller
                 'description' => 'nullable|string',
                 'price' => 'required|numeric|min:0',
                 'is_available' => 'required|boolean',
-                'category' => 'required|string|max:100',
+                'category_id' => 'required|exists:categories,id',
                 'image_path' => 'required|string',
                 'is_featured' => 'sometimes|boolean',
             ]);
@@ -53,22 +53,45 @@ class ProductController extends Controller
             'dish_name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_available' => 'boolean',
             'is_featured' => 'boolean'
         ]);
 
-        $imagePath = '';
+        // Handle image upload
+        $imagePath = null;
+        
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('menu-images', 'public');
+            $file = $request->file('image');
+            
+            if ($file && $file->isValid()) {
+                try {
+                    // Use move() instead of store() to avoid path issues
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $storagePath = storage_path('app/public/menu-images');
+                    $file->move($storagePath, $filename);
+                    $imagePath = 'menu-images/' . $filename;
+                } catch (\Exception $e) {
+                    return back()->withErrors(['image' => 'Failed to upload image: ' . $e->getMessage()])->withInput();
+                }
+            } else {
+                return back()->withErrors(['image' => 'The uploaded file is not valid.'])->withInput();
+            }
+        } else {
+            return back()->withErrors(['image' => 'Please select an image file.'])->withInput();
+        }
+
+        // If no valid image was uploaded, return with error
+        if (!$imagePath) {
+            return back()->withErrors(['image' => 'Please upload a valid image file.'])->withInput();
         }
 
         Product::create([
             'dish_name' => $request->dish_name,
             'description' => $request->description,
             'price' => $request->price,
-            'category' => $request->category,
+            'category_id' => $request->category_id,
             'image_path' => $imagePath,
             'is_available' => $request->has('is_available'),
             'is_featured' => $request->has('is_featured')
@@ -96,7 +119,7 @@ class ProductController extends Controller
                 'description' => 'nullable|string',
                 'price' => 'required|numeric|min:0',
                 'is_available' => 'required|boolean',
-                'category' => 'required|string|max:100',
+                'category_id' => 'required|exists:categories,id',
                 'image_path' => 'required|string',
                 'is_featured' => 'sometimes|boolean',
             ]);
@@ -110,7 +133,7 @@ class ProductController extends Controller
             'dish_name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'category' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_available' => 'boolean',
             'is_featured' => 'boolean'
@@ -120,17 +143,34 @@ class ProductController extends Controller
             'dish_name' => $request->dish_name,
             'description' => $request->description,
             'price' => $request->price,
-            'category' => $request->category,
+            'category_id' => $request->category_id,
             'is_available' => $request->has('is_available'),
             'is_featured' => $request->has('is_featured')
         ];
 
         if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
-                Storage::disk('public')->delete($product->image_path);
+            $file = $request->file('image');
+            
+            if ($file->isValid()) {
+                try {
+                    // Delete old image if exists
+                    if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
+                        Storage::disk('public')->delete($product->image_path);
+                    }
+                    
+                    // Use move() instead of store() to avoid path issues
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $storagePath = storage_path('app/public/menu-images');
+                    $file->move($storagePath, $filename);
+                    $imagePath = 'menu-images/' . $filename;
+                    
+                    $updateData['image_path'] = $imagePath;
+                } catch (\Exception $e) {
+                    return back()->withErrors(['image' => 'Failed to update image: ' . $e->getMessage()])->withInput();
+                }
+            } else {
+                return back()->withErrors(['image' => 'The uploaded file is not valid.'])->withInput();
             }
-            $updateData['image_path'] = $request->file('image')->store('menu-images', 'public');
         }
 
         $product->update($updateData);

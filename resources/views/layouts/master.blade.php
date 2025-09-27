@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    @include('layouts.head') {{-- move meta/css links here --}}
+    @include('layouts.head')
 </head>
-<body>
-    <div id="main-wrapper">
-        @include('layouts.header')
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        @include('layouts.sidebar')
         
-        <div id="page-wrapper flex-1 flex flex-col">
-          @include('layouts.sidebar')
-          <div>
-          @yield('content')
-          </div>
+        <div class="flex-1 flex flex-col overflow-hidden">
+            @include('layouts.header')
+            
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+                <div class="container mx-auto px-6 py-8">
+                    @yield('content')
+                </div>
+            </main>
         </div>
-
-        @include('layouts.footer')
     </div>
 
     @include('layouts.scripts')

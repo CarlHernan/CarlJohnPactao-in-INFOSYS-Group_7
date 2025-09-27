@@ -12,6 +12,11 @@ class DatabaseSeeder extends Seeder
         /*kung i type mo yung php artisan db:seed ma seed na lahat ng seeder class. dagdagan lang natin ito soon*/
         $this->call([
             AdminUserSeeder::class,
-            ProductsTableSeeder::class,]);
+            CustomerUserSeeder::class,
+            CategorySeeder::class,
+            ProductsTableSeeder::class,
+            CartSeeder::class,
+            OrderSeeder::class,
+        ]);
     }
 }

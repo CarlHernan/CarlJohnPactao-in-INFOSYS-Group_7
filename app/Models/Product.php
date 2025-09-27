@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
-    protected $table = 'menu';
-
-    protected $primaryKey = 'menu_id';  // Magsabi sa Eloquent na ang primary key is 'product_id' imbes na 'id'
+    protected $table = 'products';
 
     protected $fillable = [
         'dish_name',
@@ -20,7 +20,7 @@ class Product extends Model
         'price',
         'is_available',
         'is_featured',
-        'category',
+        'category_id',
         'image_path',
     ];
 
@@ -31,10 +31,26 @@ class Product extends Model
     ];
 
     /**
-     * Get the route key for the model.
+     * Get the category that owns the product.
      */
-    public function getRouteKeyName()
+    public function category(): BelongsTo
     {
-        return 'menu_id';
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the cart items for the product.
+     */
+    public function cartItems(): HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    /**
+     * Get the order items for the product.
+     */
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

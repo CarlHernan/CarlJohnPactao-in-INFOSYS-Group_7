@@ -1,0 +1,200 @@
+ONLINE KARINDERYA DATABASE SCHEMA DIAGRAM
+==========================================
+
+┌─────────────────┐
+│     USERS       │
+├─────────────────┤
+│ id (PK)         │
+│ name            │
+│ email (UNIQUE)  │
+│ password        │
+│ is_admin        │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:1
+         ▼
+┌─────────────────┐
+│      CARTS      │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:M
+         ▼
+┌─────────────────┐
+│   CART_ITEMS    │
+├─────────────────┤
+│ id (PK)         │
+│ cart_id (FK)    │
+│ product_id (FK) │
+│ quantity        │
+└─────────────────┘
+
+┌─────────────────┐
+│   CATEGORIES    │
+├─────────────────┤
+│ id (PK)         │
+│ name            │
+│ description     │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:M
+         ▼
+┌─────────────────┐
+│    PRODUCTS     │
+├─────────────────┤
+│ id (PK)         │
+│ dish_name       │
+│ description     │
+│ price           │
+│ is_available    │
+│ is_featured     │
+│ image_path      │
+│ category_id (FK)│
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:M
+         ▼
+┌─────────────────┐
+│   ORDER_ITEMS   │
+├─────────────────┤
+│ id (PK)         │
+│ order_id (FK)   │
+│ product_id (FK) │
+│ quantity        │
+│ price           │
+└─────────────────┘
+
+┌─────────────────┐
+│     USERS       │
+├─────────────────┤
+│ id (PK)         │
+│ name            │
+│ email (UNIQUE)  │
+│ password        │
+│ is_admin        │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:M
+         ▼
+┌─────────────────┐
+│     ORDERS      │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ status          │
+│ total_amount    │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:M
+         ▼
+┌─────────────────┐
+│   ORDER_ITEMS   │
+├─────────────────┤
+│ id (PK)         │
+│ order_id (FK)   │
+│ product_id (FK) │
+│ quantity        │
+│ price           │
+└─────────────────┘
+
+┌─────────────────┐
+│     ORDERS      │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ status          │
+│ total_amount    │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:1
+         ▼
+┌─────────────────┐
+│    PAYMENTS     │
+├─────────────────┤
+│ id (PK)         │
+│ order_id (FK)   │
+│ payment_method  │
+│ amount          │
+│ status          │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│     ORDERS      │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ status          │
+│ total_amount    │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1:1
+         ▼
+┌─────────────────┐
+│   DELIVERIES    │
+├─────────────────┤
+│ id (PK)         │
+│ order_id (FK)   │
+│ address         │
+│ status          │
+│ delivery_date   │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│ PERSONAL_ACCESS │
+│     TOKENS      │
+├─────────────────┤
+│ id (PK)         │
+│ tokenable_type  │
+│ tokenable_id    │
+│ name            │
+│ token (UNIQUE)  │
+│ abilities       │
+│ last_used_at    │
+│ expires_at      │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+
+RELATIONSHIP LEGEND:
+===================
+PK = Primary Key
+FK = Foreign Key
+1:1 = One-to-One
+1:M = One-to-Many
+M:1 = Many-to-One
+
+KEY RELATIONSHIPS:
+==================
+• Users have one Cart (1:1)
+• Users have many Orders (1:M)
+• Categories have many Products (1:M)
+• Products belong to one Category (M:1)
+• Orders have many Order Items (1:M)
+• Orders have one Payment (1:1)
+• Orders have one Delivery (1:1)
+• Carts have many Cart Items (1:M)
+• Products can be in many Cart Items (1:M)
+• Products can be in many Order Items (1:M)
+• Users can have many Personal Access Tokens (1:M)

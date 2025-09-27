@@ -8,8 +8,11 @@
 <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png') }}">
 
 <!-- Nice Admin CSS -->
+@if(request()->routeIs('dashboard'))
 <link href="{{ asset('assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/libs/jvectormap/jquery-jvectormap.css') }}" rel="stylesheet">
+@endif
 <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
 
 <!-- Fonts -->

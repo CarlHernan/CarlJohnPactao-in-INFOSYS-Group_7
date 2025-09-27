@@ -9,14 +9,14 @@ class ProductsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('menu')->insert([
+        DB::table('products')->insert([
             [
                 'dish_name' => 'Adobo',
                 'description' => 'Classic pork or chicken stew braised in soy sauce, vinegar, and spices.',
                 'price' => 75.00,
                 'is_available' => true,
                 'is_featured' => true,
-                'category' => 'Ulam',
+                'category_id' => 1, // Ulam category
                 'image_path' => 'images/products/adobo.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -27,7 +27,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 85.00,
                 'is_available' => true,
                 'is_featured' => true,
-                'category' => 'Ulam',
+                'category_id' => 1, // Ulam category
                 'image_path' => 'images/products/sinigang.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -38,7 +38,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 100.00,
                 'is_available' => true,
                 'is_featured' => false,
-                'category' => 'Ulam',
+                'category_id' => 1, // Ulam category
                 'image_path' => 'images/products/kare-kare.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -49,7 +49,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 70.00,
                 'is_available' => true,
                 'is_featured' => false,
-                'category' => 'Ulam',
+                'category_id' => 1, // Ulam category
                 'image_path' => 'images/products/tinola.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -60,7 +60,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 65.00,
                 'is_available' => true,
                 'is_featured' => false,
-                'category' => 'Ulam',
+                'category_id' => 1, // Ulam category
                 'image_path' => 'images/products/laing.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -71,7 +71,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 80.00,
                 'is_available' => true,
                 'is_featured' => true,
-                'category' => 'Ulam',
+                'category_id' => 1, // Ulam category
                 'image_path' => 'images/products/bicol-express.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),

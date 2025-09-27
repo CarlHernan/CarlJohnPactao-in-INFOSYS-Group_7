@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 
@@ -34,7 +36,24 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::get('/menus/{product}/edit', [ProductController::class, 'edit'])->name('admin.dashboard.menus.edit');
         Route::put('/menus/{product}', [ProductController::class, 'update'])->name('admin.dashboard.menus.update');
         Route::delete('/menus/{product}', [ProductController::class, 'destroy'])->name('admin.dashboard.menus.destroy');
-        Route::get('/orders', [ProductController::class, 'orders'])->name('admin.dashboard.orders');
+        
+        // Order management routes
+        Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders');
+        Route::get('/orders/stats', [OrderController::class, 'getStats'])->name('admin.dashboard.orders.stats');
+        Route::get('/orders/search', [OrderController::class, 'search'])->name('admin.dashboard.orders.search');
+        Route::get('/orders/status/{status}', [OrderController::class, 'getByStatus'])->name('admin.dashboard.orders.by-status');
+        Route::get('/orders/{order}', [OrderController::class, 'show'])->name('admin.dashboard.orders.show');
+        Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.dashboard.orders.status');
+        Route::put('/orders/{order}/delivery', [OrderController::class, 'updateDeliveryStatus'])->name('admin.dashboard.orders.delivery');
+        Route::put('/orders/{order}/payment', [OrderController::class, 'updatePaymentStatus'])->name('admin.dashboard.orders.payment');
+        
+        // Category management routes
+        Route::get('/categories', [CategoryController::class, 'index'])->name('admin.dashboard.categories');
+        Route::get('/categories/create', [CategoryController::class, 'create'])->name('admin.dashboard.categories.create');
+        Route::post('/categories', [CategoryController::class, 'store'])->name('admin.dashboard.categories.store');
+        Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.dashboard.categories.edit');
+        Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('admin.dashboard.categories.update');
+        Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.dashboard.categories.destroy');
     });
 
 //    profile management
