@@ -76,8 +76,8 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
+                        </tr>
+                    </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($orders as $order)
                         <tr class="hover:bg-gray-50">
@@ -168,9 +168,9 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
     @else
         <div class="text-center py-8">
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
