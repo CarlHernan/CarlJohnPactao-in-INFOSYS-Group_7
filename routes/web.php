@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\DashboardController;
 
 /*
  * guys this page is for routing the web pages only, if you guys wanna
@@ -29,7 +30,7 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
 //    fix or fallback kung i type lang ng user kay /admin
     Route::get('/', function () { return redirect('admin/dashboard'); })->name('dashboard');
 
-    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 //    end points for menu dashboard
     Route::prefix('dashboard')->group(function () {

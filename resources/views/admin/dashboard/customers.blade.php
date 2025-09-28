@@ -28,7 +28,7 @@
             
             <!-- Date Filter -->
             <div>
-                <select name="date_filter" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <select name="date_filter" class="px-3 py-2 pr-8 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm min-w-[120px]">
                     <option value="">All Time</option>
                     <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Today</option>
                     <option value="week" {{ request('date_filter') == 'week' ? 'selected' : '' }}>This Week</option>

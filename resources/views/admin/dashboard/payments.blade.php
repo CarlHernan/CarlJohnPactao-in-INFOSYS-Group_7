@@ -144,7 +144,7 @@
                                         @method('PUT')
                                         <select name="status" 
                                                 onchange="this.form.submit()" 
-                                                class="text-xs px-2 py-1 border border-gray-300 rounded-md bg-white text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                                                class="text-xs px-2.5 py-1.5 pr-6 border border-gray-300 rounded-md bg-white text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 min-w-[110px]">
                                             <option value="pending" {{ $payment->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                             <option value="paid" {{ $payment->status == 'paid' ? 'selected' : '' }}>Paid</option>
                                             <option value="failed" {{ $payment->status == 'failed' ? 'selected' : '' }}>Failed</option>
