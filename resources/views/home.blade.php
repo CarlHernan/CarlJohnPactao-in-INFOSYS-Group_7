@@ -7,7 +7,7 @@
             <h2 class="lg:text-2xl  font-bold ">Todays Paboritos:</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($featured as $products)
-                <x-components.product-card
+                <x-components.homepage-product-card
                     :dish_name="$products->dish_name"
                     :price="$products->price"
                     :description="$products->description"
@@ -44,7 +44,7 @@
                 </ul>
 
                 <div class="pt-4">
-                    <x-menuButton href="/menu e">View Menu</x-menuButton>
+                    <x-menuButton href="/menu">View Menu</x-menuButton>
                 </div>
             </div>
 
