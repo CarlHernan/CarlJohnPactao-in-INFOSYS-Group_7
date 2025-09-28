@@ -39,48 +39,66 @@
             @include('components.icons.hamburger')
         </button>
 
-    </div>
-    <div id="navModal" class="hidden fixed inset-0 z-40">
-        {{-- para kung i tap mag close yung modal, no need i click yung close button --}}
-        <div id="modalBackdrop" class="fixed inset-0"></div>
+        
+        {{--Ito yung modal para sa navlinks sa mobile if gusto nyu mag add nang desing go lng--}}
+            <div id="navModal" class="hidden fixed inset-0 z-40 flex flex-col">
+            
+                <div id="modalBackdrop" class="absolute inset-0"></div>
 
-        <div class="relative top-12 ml-auto rounded-lg mr-5 w-4/10 bg-white text-gray-900 shadow-lg p-4 max-h-fit">
-            <button id="closeBtn" class="absolute top-3 right-3">
-                @include('components.icons.close')
-            </button>
-            <nav class="mt-6">
-                <ul class="space-y-3">
-                    <li><a href="/" class="block px-2 py-1 rounded hover:bg-gray-100 text-left">Home</a></li>
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-100 text-left">Products</a></li>
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-100 text-left pb-auto">Orders</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+                
+                <div class="relative w-full bg-gray-100 shadow-md flex flex-col items-center py-10 animate-slideDown">
+                   
+                    <button id="closeBtn" class="absolute top-5 right-6 text-2xl">
+                        @include('components.icons.close')
+                    </button>
+
+                    
+                    <nav class="mt-10">
+                        <ul class="text-2xl font-semibold text-gray-900 space-y-8 text-center">
+                            <li class="nav-link opacity-0"><a href="/home" class="block hover:text-emerald-700">Home</a></li>
+                            <li class="nav-link opacity-0"><a href="/menu" class="block hover:text-emerald-700">Products</a></li>
+                            <li class="nav-link opacity-0"><a href="/orders" class="block hover:text-emerald-700">Orders</a></li>
+                            <li class="nav-link opacity-0"><a href="/about" class="block hover:text-emerald-700">About</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
+
+
+
+
+
 
 </nav>
 
 <script>
+            //Hastag i love vanila ^^
+        document.addEventListener('DOMContentLoaded', () => {
+            const navModal = document.querySelector("#navModal");
+            const menuBtn = document.querySelector("#menuBtn");
+            const closeBtn = document.querySelector("#closeBtn");
+            const navLinks = document.querySelectorAll("#navModal .nav-link");
 
-    // lezgo  back to vanilla
-    document.addEventListener('DOMContentLoaded', () => {
-        const navModal = document.querySelector("#navModal");
-        const menuBtn = document.querySelector("#menuBtn");
-        const closeBtn = document.querySelector("#closeBtn");
-        const modalBackdrop = document.querySelector("#modalBackdrop");
+            menuBtn.addEventListener('click', () => {
+                navModal.classList.remove('hidden');
+                navModal.classList.add('show');
 
-        menuBtn.addEventListener('click', () => {
-            navModal.classList.remove('hidden');
-            navModal.classList.add('flex');
+                //Ito yung pa isa isa sila naga baba
+                navLinks.forEach((link, i) => {
+                    setTimeout(() => {
+                        link.classList.add('show');
+                    }, i * 200);
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                navModal.classList.add('hidden');
+                navModal.classList.remove('show');
+                navLinks.forEach(link => link.classList.remove('show'));
+            });
         });
 
-        closeBtn.addEventListener('click', () => {
-            navModal.classList.add('hidden');
-        });
-
-        modalBackdrop.addEventListener('click', () => {
-            navModal.classList.add('hidden');
-        });
-    });
 
 </script>
