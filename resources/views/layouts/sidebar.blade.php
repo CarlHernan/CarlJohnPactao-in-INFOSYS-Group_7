@@ -21,32 +21,31 @@
 
                 <li>
                     <a href="{{ route('dashboard') }}"
-                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700">
-                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700 {{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white' : '' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="2"
                              viewBox="0 0 24 24">
                              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M3 6h18M3 18h18"/>
                         </svg>
                         <span>Dashboard</span>
-                        <span class="ml-auto bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">3</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.dashboard.menus') }}"
-                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700">
-                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700 {{ request()->routeIs('admin.dashboard.menus*') ? 'bg-blue-600 text-white' : '' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.dashboard.menus*') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="2"
                              viewBox="0 0 24 24">
                              <circle cx="12" cy="12" r="10"/>
                              <circle cx="12" cy="12" r="3"/>
                         </svg>
-                        <span>Manage Menus</span>
+                        <span>Menus</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.dashboard.categories') }}"
-                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700">
-                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700 {{ request()->routeIs('admin.dashboard.categories*') ? 'bg-blue-600 text-white' : '' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.dashboard.categories*') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="2"
                              viewBox="0 0 24 24">
                              <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                         </svg>
@@ -56,8 +55,8 @@
 
                 <li>
                     <a href="{{ route('admin.dashboard.orders') }}"
-                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700">
-                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700 {{ request()->routeIs('admin.dashboard.orders*') ? 'bg-blue-600 text-white' : '' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.dashboard.orders*') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="2"
                              viewBox="0 0 24 24">
                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                         </svg>
@@ -67,12 +66,38 @@
 
                 <li>
                     <a href="{{ route('admin.dashboard.payments') }}"
-                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700">
-                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700 {{ request()->routeIs('admin.dashboard.payments*') ? 'bg-blue-600 text-white' : '' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.dashboard.payments*') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="2"
                              viewBox="0 0 24 24">
                              <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                         </svg>
                         <span>Payments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.dashboard.customers') }}"
+                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700 {{ request()->routeIs('admin.dashboard.customers*') ? 'bg-blue-600 text-white' : '' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.dashboard.customers*') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="2"
+                             viewBox="0 0 24 24">
+                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                        </svg>
+                        <span>Customers</span>
+                    </a>
+                </li>
+
+                <li class="text-xs font-semibold uppercase tracking-wider text-gray-400 mt-6">
+                    Analytics
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.dashboard.reports.sales') }}"
+                       class="sidebar-link flex items-center p-2 rounded-md hover:bg-gray-700 {{ request()->routeIs('admin.dashboard.reports*') ? 'bg-blue-600 text-white' : '' }}">
+                        <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.dashboard.reports*') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" stroke-width="2"
+                             viewBox="0 0 24 24">
+                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <span>Reports & Analytics</span>
                     </a>
                 </li>
             </ul>

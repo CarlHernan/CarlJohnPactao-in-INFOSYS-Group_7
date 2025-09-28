@@ -5,6 +5,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 
@@ -65,6 +67,20 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.dashboard.categories.edit');
         Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('admin.dashboard.categories.update');
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.dashboard.categories.destroy');
+        
+        // Customer management routes
+        Route::get('/customers', [CustomerController::class, 'index'])->name('admin.dashboard.customers');
+        Route::get('/customers/stats', [CustomerController::class, 'stats'])->name('admin.dashboard.customers.stats');
+        Route::get('/customers/search', [CustomerController::class, 'search'])->name('admin.dashboard.customers.search');
+        Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('admin.dashboard.customers.show');
+        Route::put('/customers/{customer}/toggle-status', [CustomerController::class, 'toggleStatus'])->name('admin.dashboard.customers.toggle-status');
+        Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('admin.dashboard.customers.destroy');
+        
+        // Reports & Analytics routes
+        Route::get('/reports/sales', [ReportsController::class, 'sales'])->name('admin.dashboard.reports.sales');
+        Route::get('/reports/products', [ReportsController::class, 'products'])->name('admin.dashboard.reports.products');
+        Route::get('/reports/customers', [ReportsController::class, 'customers'])->name('admin.dashboard.reports.customers');
+        Route::get('/reports/sales/export', [ReportsController::class, 'exportSales'])->name('admin.dashboard.reports.sales.export');
     });
 
 //    profile management

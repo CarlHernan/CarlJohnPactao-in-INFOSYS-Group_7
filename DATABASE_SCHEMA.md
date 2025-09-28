@@ -1,3 +1,156 @@
+## Database Schema (Updated)
+
+This document describes the current database schema, including tables, key fields, and relationships. It includes recent changes such as the `users.is_active` flag for customer activation/deactivation and the updated `orders.status` enum.
+
+### Entities and Relationships
+
+```mermaid
+erDiagram
+    USERS ||--o{ ORDERS : places
+    USERS ||--o{ CARTS : has
+
+    CARTS ||--o{ CART_ITEMS : contains
+    PRODUCTS ||--o{ CART_ITEMS : appears_in
+
+    ORDERS ||--o{ ORDER_ITEMS : contains
+    PRODUCTS ||--o{ ORDER_ITEMS : sold_as
+
+    ORDERS ||--|| PAYMENTS : has_one
+    ORDERS ||--|| DELIVERIES : has_one
+
+    CATEGORIES ||--o{ PRODUCTS : groups
+
+    USERS {
+        bigint id PK
+        string name
+        string email UNIQUE
+        timestamp email_verified_at NULL
+        boolean is_active DEFAULT true
+        string password
+        timestamps
+    }
+
+    CATEGORIES {
+        bigint id PK
+        string name
+        text description NULL
+        timestamps
+    }
+
+    PRODUCTS {
+        bigint id PK
+        string dish_name
+        text description NULL
+        decimal price(10,2)
+        bigint category_id FK -> CATEGORIES.id
+        string image_path NULL
+        boolean is_available DEFAULT true
+        timestamps
+    }
+
+    ORDERS {
+        bigint id PK
+        bigint user_id FK -> USERS.id
+        enum status('pending','confirmed','preparing','ready','delivered','cancelled') DEFAULT 'pending'
+        decimal total_amount(10,2)
+        timestamps
+    }
+
+    ORDER_ITEMS {
+        bigint id PK
+        bigint order_id FK -> ORDERS.id
+        bigint product_id FK -> PRODUCTS.id
+        integer quantity
+        decimal price(10,2)
+        timestamps
+    }
+
+    CARTS {
+        bigint id PK
+        bigint user_id FK -> USERS.id
+        timestamps
+    }
+
+    CART_ITEMS {
+        bigint id PK
+        bigint cart_id FK -> CARTS.id
+        bigint product_id FK -> PRODUCTS.id
+        integer quantity
+        timestamps
+    }
+
+    PAYMENTS {
+        bigint id PK
+        bigint order_id FK -> ORDERS.id UNIQUE
+        enum payment_method('cod','gcash','card')
+        decimal amount(10,2)
+        enum status('pending','paid','failed') DEFAULT 'pending'
+        string proof_path NULL
+        timestamps
+    }
+
+    DELIVERIES {
+        bigint id PK
+        bigint order_id FK -> ORDERS.id UNIQUE
+        string address
+        enum status('pending','shipped','delivered') DEFAULT 'pending'
+        date delivery_date NULL
+        timestamps
+    }
+```
+
+### Table Details
+
+- Users (`users`)
+  - Fields: `id`, `name`, `email`, `email_verified_at`, `is_active` (NEW), `password`, `created_at`, `updated_at`
+  - Relationships: has many `orders`, has one `cart`
+
+- Categories (`categories`)
+  - Fields: `id`, `name`, `description`, timestamps
+  - Relationships: has many `products`
+
+- Products (`products`)
+  - Fields: `id`, `dish_name`, `description`, `price`, `category_id`, `image_path`, `is_available`, timestamps
+  - Relationships: belongs to `category`, has many `order_items`, has many `cart_items`
+
+- Orders (`orders`)
+  - Fields: `id`, `user_id`, `status` (enum updated to: pending, confirmed, preparing, ready, delivered, cancelled), `total_amount`, timestamps
+  - Relationships: belongs to `user`, has many `order_items`, has one `payment`, has one `delivery`
+
+- Order Items (`order_items`)
+  - Fields: `id`, `order_id`, `product_id`, `quantity`, `price`, timestamps
+  - Relationships: belongs to `order`, belongs to `product`
+
+- Carts (`carts`)
+  - Fields: `id`, `user_id`, timestamps
+  - Relationships: belongs to `user`, has many `cart_items`
+
+- Cart Items (`cart_items`)
+  - Fields: `id`, `cart_id`, `product_id`, `quantity`, timestamps
+  - Relationships: belongs to `cart`, belongs to `product`
+
+- Payments (`payments`)
+  - Fields: `id`, `order_id`, `payment_method` (cod|gcash|card), `amount`, `status` (pending|paid|failed), `proof_path` (optional), timestamps
+  - Relationships: belongs to `order`
+
+- Deliveries (`deliveries`)
+  - Fields: `id`, `order_id`, `address`, `status` (pending|shipped|delivered), `delivery_date` (optional), timestamps
+  - Relationships: belongs to `order`
+
+### Notes
+
+- `users.is_active` controls whether a customer account is active. The Customers page toggles this flag.
+- `orders.status` enum set is aligned with the UI: `pending`, `confirmed`, `preparing`, `ready`, `delivered`, `cancelled`.
+- `payments.order_id` and `deliveries.order_id` are one-to-one with `orders`.
+- Image files are stored under `storage/app/public/menu-images` with DB path `menu-images/<filename>`.
+
+### Suggested Indexes (optional)
+
+- `orders`: index on `(user_id, status, created_at)`
+- `order_items`: index on `(order_id)`, `(product_id)`
+- `cart_items`: index on `(cart_id)`, `(product_id)`
+- `products`: index on `(category_id)`, `(is_available)`
+
 # Online Karinderya Database Schema
 
 ## Overview
