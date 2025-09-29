@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.dashboard.orders.status');
         Route::put('/orders/{order}/delivery', [OrderController::class, 'updateDeliveryStatus'])->name('admin.dashboard.orders.delivery');
         Route::put('/orders/{order}/payment', [OrderController::class, 'updatePaymentStatus'])->name('admin.dashboard.orders.payment');
-        
+
         // Payment management routes
         Route::get('/payments', [PaymentController::class, 'index'])->name('admin.dashboard.payments');
         Route::get('/payments/stats', [PaymentController::class, 'getStats'])->name('admin.dashboard.payments.stats');
@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('admin.dashboard.customers.show');
         Route::put('/customers/{customer}/toggle-status', [CustomerController::class, 'toggleStatus'])->name('admin.dashboard.customers.toggle-status');
         Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('admin.dashboard.customers.destroy');
-        
+
         // Reports & Analytics routes
         Route::get('/reports/sales', [ReportsController::class, 'sales'])->name('admin.dashboard.reports.sales');
         Route::get('/reports/products', [ReportsController::class, 'products'])->name('admin.dashboard.reports.products');

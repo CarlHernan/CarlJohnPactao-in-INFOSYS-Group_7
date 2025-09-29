@@ -62,10 +62,10 @@ class ProductController extends Controller
 
         // Handle image upload
         $imagePath = null;
-        
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            
+
             if ($file && $file->isValid()) {
                 try {
                     // Use move() instead of store() to avoid path issues
@@ -151,7 +151,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            
+
             if ($file->isValid()) {
                 try {
                     // Store old image path before updating
@@ -162,7 +162,7 @@ class ProductController extends Controller
                     $storagePath = storage_path('app/public/menu-images');
                     $file->move($storagePath, $filename);
                     $imagePath = 'menu-images/' . $filename;
-                    
+
                     $updateData['image_path'] = $imagePath;
                     
                     // Delete old image after successful upload

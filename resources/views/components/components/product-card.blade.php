@@ -4,6 +4,7 @@
     'description' => '',
     'image_path' => null,
     'product_id' => null,
+    'href' => null,
 ])
 
 @php
@@ -12,12 +13,22 @@
 
 <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full">
     <div class="relative h-48 bg-gray-100 flex items-center justify-center">
-        <img src="{{ $imgSrc }}" alt="{{ $dish_name }}" class="w-full h-full object-cover">
+        @if($href)
+            <a href="{{ $href }}" class="block w-full h-full">
+                <img src="{{ $imgSrc }}" alt="{{ $dish_name }}" class="w-full h-full object-cover">
+            </a>
+        @else
+            <img src="{{ $imgSrc }}" alt="{{ $dish_name }}" class="w-full h-full object-cover">
+        @endif
     </div>
 
     <div class="p-4 flex flex-col h-full">
         <div class="flex justify-between items-start mb-2">
-            <h3 class="text-lg font-semibold text-gray-900 line-clamp-1">{{ $dish_name }}</h3>
+            @if($href)
+                <a href="{{ $href }}" class="text-lg font-semibold text-gray-900 line-clamp-1 hover:underline">{{ $dish_name }}</a>
+            @else
+                <h3 class="text-lg font-semibold text-gray-900 line-clamp-1">{{ $dish_name }}</h3>
+            @endif
             <span class="text-emerald-900 font-bold text-lg ml-2">₱{{ number_format($price, 2) }}</span>
         </div>
 
