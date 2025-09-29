@@ -61,10 +61,10 @@ class ProductController extends Controller
 
         // Handle image upload
         $imagePath = null;
-        
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            
+
             if ($file && $file->isValid()) {
                 try {
                     // Use move() instead of store() to avoid path issues
@@ -150,20 +150,20 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            
+
             if ($file->isValid()) {
                 try {
                     // Delete old image if exists
                     if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
                         Storage::disk('public')->delete($product->image_path);
                     }
-                    
+
                     // Use move() instead of store() to avoid path issues
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $storagePath = storage_path('app/public/menu-images');
                     $file->move($storagePath, $filename);
                     $imagePath = 'menu-images/' . $filename;
-                    
+
                     $updateData['image_path'] = $imagePath;
                 } catch (\Exception $e) {
                     return back()->withErrors(['image' => 'Failed to update image: ' . $e->getMessage()])->withInput();
@@ -200,5 +200,22 @@ class ProductController extends Controller
     {
         $featured = Product::where('is_featured', true)->get();
         return response()->json($featured);
+    }
+
+    // Web page: show product details with related products
+    public function showPage(Product $product)
+    {
+        $product->load('category');
+        $relatedProducts = Product::with('category')
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view('components.menu-details', [
+            'product' => $product,
+            'relatedProducts' => $relatedProducts,
+        ]);
     }
 }

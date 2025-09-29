@@ -21,6 +21,8 @@ use App\Http\Controllers\DashboardController;
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
+// Product detail page (must be after the /menu listing route)
+Route::get('/menu/{product}', [ProductController::class, 'showPage'])->name('menu.show');
 Route::get('/orders', [PageController::class, 'orders'])->name('orders');
 
 Route::get('/', function () { return redirect('/home'); });
@@ -40,7 +42,7 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::get('/menus/{product}/edit', [ProductController::class, 'edit'])->name('admin.dashboard.menus.edit');
         Route::put('/menus/{product}', [ProductController::class, 'update'])->name('admin.dashboard.menus.update');
         Route::delete('/menus/{product}', [ProductController::class, 'destroy'])->name('admin.dashboard.menus.destroy');
-        
+
         // Order management routes
         Route::get('/orders', [OrderController::class, 'index'])->name('admin.dashboard.orders');
         Route::get('/orders/stats', [OrderController::class, 'getStats'])->name('admin.dashboard.orders.stats');
@@ -50,7 +52,7 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.dashboard.orders.status');
         Route::put('/orders/{order}/delivery', [OrderController::class, 'updateDeliveryStatus'])->name('admin.dashboard.orders.delivery');
         Route::put('/orders/{order}/payment', [OrderController::class, 'updatePaymentStatus'])->name('admin.dashboard.orders.payment');
-        
+
         // Payment management routes
         Route::get('/payments', [PaymentController::class, 'index'])->name('admin.dashboard.payments');
         Route::get('/payments/stats', [PaymentController::class, 'getStats'])->name('admin.dashboard.payments.stats');
@@ -60,7 +62,7 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::put('/payments/{payment}/status', [PaymentController::class, 'updateStatus'])->name('admin.dashboard.payments.status');
         Route::put('/payments/{payment}/update', [PaymentController::class, 'updateWithProof'])->name('admin.dashboard.payments.update');
         Route::get('/payments/{payment}/download-proof', [PaymentController::class, 'downloadProof'])->name('admin.dashboard.payments.download-proof');
-        
+
         // Category management routes
         Route::get('/categories', [CategoryController::class, 'index'])->name('admin.dashboard.categories');
         Route::get('/categories/create', [CategoryController::class, 'create'])->name('admin.dashboard.categories.create');
@@ -68,7 +70,7 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.dashboard.categories.edit');
         Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('admin.dashboard.categories.update');
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.dashboard.categories.destroy');
-        
+
         // Customer management routes
         Route::get('/customers', [CustomerController::class, 'index'])->name('admin.dashboard.customers');
         Route::get('/customers/stats', [CustomerController::class, 'stats'])->name('admin.dashboard.customers.stats');
@@ -76,7 +78,7 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('admin.dashboard.customers.show');
         Route::put('/customers/{customer}/toggle-status', [CustomerController::class, 'toggleStatus'])->name('admin.dashboard.customers.toggle-status');
         Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('admin.dashboard.customers.destroy');
-        
+
         // Reports & Analytics routes
         Route::get('/reports/sales', [ReportsController::class, 'sales'])->name('admin.dashboard.reports.sales');
         Route::get('/reports/products', [ReportsController::class, 'products'])->name('admin.dashboard.reports.products');

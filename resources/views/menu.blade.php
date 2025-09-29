@@ -15,29 +15,29 @@
                     <!-- Search Bar -->
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
-                            <input type="text" 
-                                   name="search" 
+                            <input type="text"
+                                   name="search"
                                    value="{{ $search }}"
                                    placeholder="Search dishes..."
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
                         </div>
-                        
+
                         <!-- Price Range -->
                         <div class="flex gap-2">
-                            <input type="number" 
-                                   name="min_price" 
+                            <input type="number"
+                                   name="min_price"
                                    value="{{ $minPrice }}"
                                    placeholder="Min Price"
                                    class="w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
                             <span class="flex items-center text-gray-500">-</span>
-                            <input type="number" 
-                                   name="max_price" 
+                            <input type="number"
+                                   name="max_price"
                                    value="{{ $maxPrice }}"
                                    placeholder="Max Price"
                                    class="w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
                         </div>
-                        
-                        <button type="submit" 
+
+                        <button type="submit"
                                 class="px-6 py-2 bg-green-900 text-white rounded-lg hover:bg-green-800 transition-colors">
                             Search
                         </button>
@@ -49,12 +49,12 @@
             <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
                 <!-- Desktop: Tabs -->
                 <div class="hidden md:flex flex-wrap gap-2">
-                    <a href="{{ route('menu') }}" 
+                    <a href="{{ route('menu') }}"
                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors {{ !$selectedCategory ? 'bg-green-900 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
                         All ({{ $categories->sum('products_count') }})
                     </a>
                     @foreach($categories as $category)
-                        <a href="{{ route('menu', ['category' => $category->id]) }}" 
+                        <a href="{{ route('menu', ['category' => $category->id]) }}"
                            class="px-4 py-2 rounded-full text-sm font-medium transition-colors {{ $selectedCategory == $category->id ? 'bg-green-900 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
                             {{ $category->name }} ({{ $category->products_count }})
                         </a>
@@ -74,8 +74,8 @@
                         @if($maxPrice)
                             <input type="hidden" name="max_price" value="{{ $maxPrice }}">
                         @endif
-                        
-                        <select name="category" onchange="this.form.submit()" 
+
+                        <select name="category" onchange="this.form.submit()"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
                             <option value="">All Categories ({{ $categories->sum('products_count') }})</option>
                             @foreach($categories as $category)
@@ -109,7 +109,8 @@
                             :price="$product->price"
                             :description="$product->description"
                             :image_path="asset('storage/' . $product->image_path)"
-                            :product_id="$product->id"/>
+                            :product_id="$product->id"
+                            :href="route('menu.show', $product->id)"/>
                     @endforeach
                 </div>
 
@@ -123,7 +124,7 @@
                 <!-- No Results -->
                 <div class="text-center py-12">
                     <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.709M15 6.291A7.962 7.962 0 0012 4c-2.34 0-4.29 1.009-5.824 2.709"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 0 1 5.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0 1 12 15c-2.34 0-4.29-1.009-5.824-2.709M15 6.291A7.962 7.962 0 0 0 12 4c-2.34 0-4.29 1.009-5.824 2.709"/>
                     </svg>
                     <h3 class="mt-2 text-sm font-medium text-gray-900">No dishes found</h3>
                     <p class="mt-1 text-sm text-gray-500">
@@ -135,7 +136,7 @@
                     </p>
                     @if($search || $selectedCategory || $minPrice || $maxPrice)
                         <div class="mt-4">
-                            <a href="{{ route('menu') }}" 
+                            <a href="{{ route('menu') }}"
                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200">
                                 Clear filters
                             </a>

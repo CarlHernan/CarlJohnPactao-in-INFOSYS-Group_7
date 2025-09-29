@@ -6,13 +6,15 @@
                 Karinderya in Kabacan!</span></h1>
             <h2 class="lg:text-2xl  font-bold ">Todays Paboritos:</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                @foreach($featured as $products)
+                @foreach($featured as $product)
                 <x-components.homepage-product-card
-                    :dish_name="$products->dish_name"
-                    :price="$products->price"
-                    :description="$products->description"
-                    :image_path="asset('storage/' . $products->image_path)"/>
-                @endForEach
+                    :dish_name="$product->dish_name"
+                    :price="$product->price"
+                    :description="$product->description"
+                    :image_path="asset('storage/' . $product->image_path)"
+                    :href="route('menu.show', $product->id)"
+                />
+                @endforeach
             </div>
         </section>
 
@@ -56,5 +58,3 @@
     </div>
     <x-footer/>
 </x-layout>
-
-
