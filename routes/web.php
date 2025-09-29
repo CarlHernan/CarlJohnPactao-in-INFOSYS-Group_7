@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -17,7 +18,14 @@ use App\Http\Controllers\DashboardController;
   */
 
 
-//public usr pages
+// Root: require login first, then send to home
+Route::get('/', function () {
+    return Auth::guard('web')->check()
+        ? redirect('/home')
+        : redirect('/login');
+});
+
+// public user pages
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
@@ -25,10 +33,15 @@ Route::get('/menu', [PageController::class, 'menu'])->name('menu');
 Route::get('/menu/{product}', [ProductController::class, 'showPage'])->name('menu.show');
 Route::get('/orders', [PageController::class, 'orders'])->name('orders');
 
-Route::get('/', function () { return redirect('/home'); });
+// Public user profile management (web guard)
+Route::middleware('auth:web')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
+});
 
 // Admin dashboard main page
-Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
 //    fix or fallback kung i type lang ng user kay /admin
     Route::get('/', function () { return redirect('admin/dashboard'); })->name('dashboard');
 
@@ -51,12 +64,11 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::get('/orders/{order}', [OrderController::class, 'show'])->name('admin.dashboard.orders.show');
         Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.dashboard.orders.status');
         Route::put('/orders/{order}/delivery', [OrderController::class, 'updateDeliveryStatus'])->name('admin.dashboard.orders.delivery');
-        Route::put('/orders/{order}/payment', [OrderController::class, 'updatePaymentStatus'])->name('admin.dashboard.orders.payment');
+        Route::put('/orders/{order}/payment', [PaymentController::class, 'updatePaymentStatus'])->name('admin.dashboard.orders.payment');
 
         // Payment management routes
         Route::get('/payments', [PaymentController::class, 'index'])->name('admin.dashboard.payments');
         Route::get('/payments/stats', [PaymentController::class, 'getStats'])->name('admin.dashboard.payments.stats');
-        Route::get('/payments/search', [PaymentController::class, 'search'])->name('admin.dashboard.payments.search');
         Route::get('/payments/status/{status}', [PaymentController::class, 'getByStatus'])->name('admin.dashboard.payments.by-status');
         Route::get('/payments/{payment}', [PaymentController::class, 'show'])->name('admin.dashboard.payments.show');
         Route::put('/payments/{payment}/status', [PaymentController::class, 'updateStatus'])->name('admin.dashboard.payments.status');
@@ -86,7 +98,7 @@ Route::prefix('admin')->middleware(['auth','verified'])->group(function () {
         Route::get('/reports/sales/export', [ReportsController::class, 'exportSales'])->name('admin.dashboard.reports.sales.export');
     });
 
-//    profile management
+//    profile management (admin)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -34,7 +34,12 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // mag redirect to the correct profile route depending on guard wfawdfsaff dcsa va hofsdf kapoy nako sir kakalabas ko lang hospital HAHAHHA
+        if (Auth::guard('admin')->check()) {
+            return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        }
+
+        return Redirect::route('user.profile.edit')->with('status', 'profile-updated');
     }
 
     /**

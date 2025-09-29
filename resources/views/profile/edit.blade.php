@@ -1,5 +1,8 @@
 @extends('layouts.master')
 
+@section('hide_sidebar', true)
+@section('header_title', 'Manage Profile')
+
 @section('content')
 <div class="space-y-6">
     <!-- Profile Information -->
@@ -9,14 +12,14 @@
             <p class="mt-1 text-sm text-gray-600">Update your account's profile information and email address.</p>
         </div>
         <div class="p-6">
-            <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
+            <form method="post" action="{{ request()->routeIs('user.profile.*') ? route('user.profile.update') : route('profile.update') }}" class="space-y-6">
                 @csrf
                 @method('patch')
 
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+                    <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                            required autofocus autocomplete="name">
                     @error('name')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -25,8 +28,8 @@
 
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+                    <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                            required autocomplete="username">
                     @error('email')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -79,8 +82,8 @@
 
                 <div>
                     <label for="current_password" class="block text-sm font-medium text-gray-700">Current Password</label>
-                    <input type="password" name="current_password" id="current_password" 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+                    <input type="password" name="current_password" id="current_password"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                            autocomplete="current-password">
                     @error('current_password')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -89,8 +92,8 @@
 
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">New Password</label>
-                    <input type="password" name="password" id="password" 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+                    <input type="password" name="password" id="password"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                            autocomplete="new-password">
                     @error('password')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -99,8 +102,8 @@
 
                 <div>
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+                    <input type="password" name="password_confirmation" id="password_confirmation"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                            autocomplete="new-password">
                     @error('password_confirmation')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -132,13 +135,13 @@
             </button>
 
             <!-- Delete Account Form -->
-            <form method="post" action="{{ route('profile.destroy') }}" id="delete-form" class="hidden">
+            <form method="post" action="{{ request()->routeIs('user.profile.*') ? route('user.profile.destroy') : route('profile.destroy') }}" id="delete-form" class="hidden">
                 @csrf
                 @method('delete')
                 <div class="mt-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password" id="password" 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" 
+                    <input type="password" name="password" id="password"
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
                            placeholder="Password">
                     @error('password')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

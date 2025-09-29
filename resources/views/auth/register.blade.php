@@ -7,7 +7,7 @@
                     <span class="db">
                         <img src="{{ asset('images/logo.png') }}" alt="logo" class="w-16 h-auto mx-auto block" />
                     </span>
-                    <h5 class="font-medium mb-6 text-gray-600 text-lg">Sign Up to Admin</h5>
+                    <h5 class="font-medium mb-6 text-gray-600 text-lg">Create your account</h5>
                 </div>
 
                 <!-- Laravel Breeze Register Form -->
@@ -48,16 +48,6 @@
                                required autocomplete="new-password"
                                placeholder="Confirm Password">
                         <x-input-error :messages="$errors->get('password_confirmation')" class="text-danger mt-2" />
-                    </div>
-
-                    <!-- Terms Checkbox -->
-                    <div class="form-group mb-3">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="termsCheck" required>
-                            <label class="custom-control-label" for="termsCheck">
-                                I agree to all <a href="#">Terms</a>
-                            </label>
-                        </div>
                     </div>
 
                     <!-- Submit -->

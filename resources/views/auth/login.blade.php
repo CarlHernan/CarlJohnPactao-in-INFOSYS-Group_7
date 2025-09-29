@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" 
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
          style="background:url('{{ asset('assets/images/big/auth-bg.jpg') }}') no-repeat center center;">
         <div class="auth-box">
             <div id="loginform">
@@ -7,7 +7,7 @@
                     <span class="db">
                         <img src="{{ asset('images/logo.png') }}" alt="logo" class="w-10 h-auto mx-auto block "/>
                     </span>
-                    <h5 class="font-bold text-lg text-gray-800 mb-3 mt-1">Sign In to Admin</h5>
+                    <h5 class="font-bold text-lg text-gray-800 mb-3 mt-1">Sign In</h5>
                 </div>
 
                 <!-- Breeze Login Form -->
@@ -76,7 +76,7 @@
                     <!-- Sign Up -->
                     <div class="form-group m-b-0 m-t-10">
                         <div class="col-sm-12 text-center">
-                            Don't have an account? 
+                            Don't have an account?
                             <a href="{{ route('register') }}" class="text-info m-l-5"><b>Sign Up</b></a>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                         @csrf
                         <div class="form-group row">
                             <div class="col-12">
-                                <input id="recover_email" class="form-control form-control-lg" 
+                                <input id="recover_email" class="form-control form-control-lg"
                                        type="email" name="email" required placeholder="Email">
                             </div>
                         </div>

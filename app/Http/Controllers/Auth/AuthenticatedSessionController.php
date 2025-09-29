@@ -28,20 +28,20 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // After user login, send to intended public page or home
+        return redirect()->intended(route('home', absolute: false));
     }
 
     /**
-     * Destroy an authenticated session.
+     * Destroy an authenticated session for public users.
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect('/');
     }
 }

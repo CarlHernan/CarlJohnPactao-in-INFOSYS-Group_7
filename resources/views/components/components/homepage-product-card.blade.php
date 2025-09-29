@@ -27,6 +27,7 @@
             <p class="text-sm text-gray-600">
                 {{ Str::limit($description, 80) }}
                 <span class="font-semibold text-black">Read More</span>
+
             </p>
         </div>
     </a>

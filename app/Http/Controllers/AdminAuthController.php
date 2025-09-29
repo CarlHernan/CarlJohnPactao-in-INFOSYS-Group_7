@@ -10,18 +10,20 @@ class AdminAuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('admin.login'); 
+        return view('admin.login');
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        // Try to authenticate with email and password
+        // Try to authenticate with email, password, and is_admin flag
+        $credentials['is_admin'] = true;
+
         if (Auth::guard('admin')->attempt($credentials)) {
-            // Check if the authenticated user is actually an admin
+            // Check if the authenticated user is actually an admin (defense in depth)
             $user = Auth::guard('admin')->user();
-            
+
             if ($user && $user->is_admin) {
                 $request->session()->regenerate();
                 return redirect()->intended('/admin/dashboard');

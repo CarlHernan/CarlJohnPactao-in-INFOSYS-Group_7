@@ -5,11 +5,15 @@
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen">
-        @include('layouts.sidebar')
-        
+        @hasSection('hide_sidebar')
+            {{-- Sidebar hidden on this page --}}
+        @else
+            @include('layouts.sidebar')
+        @endif
+
         <div class="flex-1 flex flex-col overflow-hidden">
             @include('layouts.header')
-            
+
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
                 <div class="container mx-auto px-6 py-8">
                     @yield('content')

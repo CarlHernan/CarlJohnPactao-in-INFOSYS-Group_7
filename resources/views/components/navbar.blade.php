@@ -31,10 +31,39 @@
 
     </div>
 
-    <div class="flex items-center ">
+    <div class="flex items-center gap-2">
         <button class="text-emerald-900 md:border-hidden border-r-1 border-gray-300 pr-1">
             @include('components.icons.cart')
         </button>
+
+        @if(Auth::guard('web')->check())
+            <!-- User profile dropdown (web users) -->
+            <div x-data="{ open: false }" class="relative hidden md:block">
+                <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">
+                    <img src="{{ Auth::user()->avatar ?? asset('assets/images/users/1.jpg') }}" alt="{{ Auth::user()->name ?? 'User' }}" class="w-8 h-8 rounded-full">
+                    <span class="text-sm font-medium text-gray-700">{{ Auth::user()->name ?? 'User' }}</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.outside="open = false"
+                     class="absolute right-0 mt-2 w-48 bg-white text-gray-700 rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                    <a href="{{ route('user.profile.edit') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">My Profile</a>
+                    <div class="border-t border-gray-200"></div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+                    </form>
+                </div>
+            </div>
+        @else
+            <!-- Login/Register buttons -->
+            <div class="hidden md:flex items-center gap-2">
+                <a href="{{ route('login') }}" class="text-emerald-900 hover:underline">Login</a>
+                <a href="{{ route('register') }}" class="text-white bg-emerald-700 hover:bg-emerald-800 px-3 py-1 rounded">Register</a>
+            </div>
+        @endif
+
         <button id="menuBtn" class="md:hidden pl-1  text-emerald-900 border-black">
             @include('components.icons.hamburger')
         </button>
@@ -59,6 +88,18 @@
                             <li class="nav-link opacity-0"><a href="/menu" class="block hover:text-emerald-700">Products</a></li>
                             <li class="nav-link opacity-0"><a href="/orders" class="block hover:text-emerald-700">Orders</a></li>
                             <li class="nav-link opacity-0"><a href="/about" class="block hover:text-emerald-700">About</a></li>
+                            @if(Auth::guard('web')->check())
+                                <li class="nav-link opacity-0"><a href="{{ route('user.profile.edit') }}" class="block hover:text-emerald-700">My Profile</a></li>
+                                <li class="nav-link opacity-0">
+                                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                                        @csrf
+                                        <button type="submit" class="hover:text-emerald-700">Logout</button>
+                                    </form>
+                                </li>
+                            @else
+                                <li class="nav-link opacity-0"><a href="{{ route('login') }}" class="block hover:text-emerald-700">Login</a></li>
+                                <li class="nav-link opacity-0"><a href="{{ route('register') }}" class="block hover:text-emerald-700">Register</a></li>
+                            @endif
                         </ul>
                     </nav>
                 </div>
