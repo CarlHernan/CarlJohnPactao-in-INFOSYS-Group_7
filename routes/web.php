@@ -21,15 +21,12 @@ use App\Http\Controllers\CheckoutController;
   */
 
 
-// Root: require login first, then send to home
+// land sa home
 Route::get('/', function () {
-    return Auth::guard('web')->check()
-        ? redirect('/home')
-        : redirect('/login');
+    return redirect('/home');
 });
 
 // public user pages
-Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
@@ -42,7 +39,12 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
+
+    // Checkout (must be authenticated user)
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
 });
+
 // Cart routes (public, session-based)
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
@@ -52,16 +54,13 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 
 // Admin dashboard main page
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
-//    fix or fallback kung i type lang ng user kay /admin
+    // fix or fallback kung i type lang ng user kay /admin
     Route::get('/', function () { return redirect('admin/dashboard'); })->name('dashboard');
-Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout/place', [CheckoutController::class, 'place'])->name('checkout.place');
 
-    // the admn
-    Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::prefix('dashboard')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // end points for menu dashboard
+    Route::prefix('dashboard')->group(function () {
         Route::get('/menus', [ProductController::class, 'menus'])->name('admin.dashboard.menus');
         Route::get('/menus/create', [ProductController::class, 'create'])->name('admin.dashboard.menus.create');
         Route::post('/menus', [ProductController::class, 'store'])->name('admin.dashboard.menus.store');
@@ -85,14 +84,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/orders/{order}', [OrderController::class, 'show'])->name('admin.dashboard.orders.show');
         Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.dashboard.orders.status');
         Route::put('/orders/{order}/delivery', [OrderController::class, 'updateDeliveryStatus'])->name('admin.dashboard.orders.delivery');
-        Route::put('/orders/{order}/payment', [PaymentController::class, 'updatePaymentStatus'])->name('admin.dashboard.orders.payment');
+        Route::put('/orders/{order}/payment', [OrderController::class, 'updatePaymentStatus'])->name('admin.dashboard.orders.payment');
 
         // Payment management routes
         Route::get('/payments', [PaymentController::class, 'index'])->name('admin.dashboard.payments');
         Route::get('/payments/stats', [PaymentController::class, 'getStats'])->name('admin.dashboard.payments.stats');
         Route::get('/payments/status/{status}', [PaymentController::class, 'getByStatus'])->name('admin.dashboard.payments.by-status');
         Route::get('/payments/{payment}', [PaymentController::class, 'show'])->name('admin.dashboard.payments.show');
-        Route::put('/payments/{payment}', [PaymentController::class, 'update'])->name('admin.dashboard.payments.update');
+        Route::put('/payments/{payment}/update', [PaymentController::class, 'updateWithProof'])->name('admin.dashboard.payments.update');
 
         // Customer management routes
         Route::get('/customers', [CustomerController::class, 'index'])->name('admin.dashboard.customers');
@@ -114,10 +113,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/settings/payment-settings', [SettingsController::class, 'getPaymentSettings'])->name('admin.dashboard.settings.payment-settings');
         Route::get('/settings/storage-stats', [SettingsController::class, 'getStorageStats'])->name('admin.dashboard.settings.storage-stats');
         Route::post('/settings/cleanup-images', [SettingsController::class, 'cleanupOrphanedImages'])->name('admin.dashboard.settings.cleanup-images');
-        });
     });
 
-//    profile management (admin)
+    // profile management (admin)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

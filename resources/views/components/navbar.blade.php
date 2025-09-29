@@ -1,6 +1,5 @@
 <nav
     class="bg-transparent backdrop-blur-lg sticky top-0 inset-x-0 z-50 px-6 py-1 md:py-2 flex items-center justify-between font-montserrat border-0 shadow-md">
-    <!-- ...rest of your navbar code... -->
     <a href="/home" class="flex items-center gap-1 mb-1" aria-label="Go to homepage">
         <img src="{{ asset('images/logo.png') }}" alt="PingganPH logo" loading="lazy" class="h-6">
         <div class="font-bold text-lg mt-2 text-black">Pinggan<span class="text-emerald-800">PH</span></div>
@@ -32,9 +31,9 @@
     </div>
 
     <div class="flex items-center gap-2">
-        <button class="text-emerald-900 md:border-hidden border-r-1 border-gray-300 pr-1">
+        <a href="{{ route('cart.index') }}" aria-label="Go to cart" class="text-emerald-900 md:border-hidden border-r-1 border-gray-300 pr-1">
             @include('components.icons.cart')
-        </button>
+        </a>
 
         @if(Auth::guard('web')->check())
             <!-- User profile dropdown (web users) -->
@@ -68,76 +67,74 @@
             @include('components.icons.hamburger')
         </button>
 
+        {{-- Mobile nav modal --}}
+        <div id="navModal" class="hidden fixed inset-0 z-40 flex flex-col">
 
-        {{--Ito yung modal para sa navlinks sa mobile if gusto nyu mag add nang desing go lng--}}
-            <div id="navModal" class="hidden fixed inset-0 z-40 flex flex-col">
-
-                <div id="modalBackdrop" class="absolute inset-0"></div>
-
-
-                <div class="relative w-full bg-gray-100 shadow-md flex flex-col items-center py-10 animate-slideDown">
-
-                    <button id="closeBtn" class="absolute top-5 right-6 text-2xl">
-                        @include('components.icons.close')
-                    </button>
+            <div id="modalBackdrop" class="absolute inset-0"></div>
 
 
-                    <nav class="mt-10">
-                        <ul class="text-2xl font-semibold text-gray-900 space-y-8 text-center">
-                            <li class="nav-link opacity-0"><a href="/home" class="block hover:text-emerald-700">Home</a></li>
-                            <li class="nav-link opacity-0"><a href="/menu" class="block hover:text-emerald-700">Products</a></li>
-                            <li class="nav-link opacity-0"><a href="/orders" class="block hover:text-emerald-700">Orders</a></li>
-                            <li class="nav-link opacity-0"><a href="/about" class="block hover:text-emerald-700">About</a></li>
-                            @if(Auth::guard('web')->check())
-                                <li class="nav-link opacity-0"><a href="{{ route('user.profile.edit') }}" class="block hover:text-emerald-700">My Profile</a></li>
-                                <li class="nav-link opacity-0">
-                                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                                        @csrf
-                                        <button type="submit" class="hover:text-emerald-700">Logout</button>
-                                    </form>
-                                </li>
-                            @else
-                                <li class="nav-link opacity-0"><a href="{{ route('login') }}" class="block hover:text-emerald-700">Login</a></li>
-                                <li class="nav-link opacity-0"><a href="{{ route('register') }}" class="block hover:text-emerald-700">Register</a></li>
-                            @endif
-                        </ul>
-                    </nav>
-                </div>
+            <div class="relative w-full bg-gray-100 shadow-md flex flex-col items-center py-10 animate-slideDown">
+
+                <button id="closeBtn" class="absolute top-5 right-6 text-2xl">
+                    @include('components.icons.close')
+                </button>
+
+
+                <nav class="mt-10">
+                    <ul class="text-2xl font-semibold text-gray-900 space-y-8 text-center">
+                        <li class="nav-link opacity-0"><a href="/home" class="block hover:text-emerald-700">Home</a></li>
+                        <li class="nav-link opacity-0"><a href="/menu" class="block hover:text-emerald-700">Products</a></li>
+                        <li class="nav-link opacity-0"><a href="/orders" class="block hover:text-emerald-700">Orders</a></li>
+                        <li class="nav-link opacity-0"><a href="/about" class="block hover:text-emerald-700">About</a></li>
+                        @if(Auth::guard('web')->check())
+                            <li class="nav-link opacity-0"><a href="{{ route('user.profile.edit') }}" class="block hover:text-emerald-700">My Profile</a></li>
+                            <li class="nav-link opacity-0">
+                                <form method="POST" action="{{ route('logout') }}" class="inline">
+                                    @csrf
+                                    <button type="submit" class="hover:text-emerald-700">Logout</button>
+                                </form>
+                            </li>
+                        @else
+                            <li class="nav-link opacity-0"><a href="{{ route('login') }}" class="block hover:text-emerald-700">Login</a></li>
+                            <li class="nav-link opacity-0"><a href="{{ route('register') }}" class="block hover:text-emerald-700">Register</a></li>
+                        @endif
+                    </ul>
+                </nav>
             </div>
+        </div>
 
     </div>
 
-
-
+    {{-- Removed cart drawer preview per request --}}
 
 </nav>
 
 <script>
-            //Hastag i love vanila ^^
-        document.addEventListener('DOMContentLoaded', () => {
-            const navModal = document.querySelector("#navModal");
-            const menuBtn = document.querySelector("#menuBtn");
-            const closeBtn = document.querySelector("#closeBtn");
-            const navLinks = document.querySelectorAll("#navModal .nav-link");
+    //Hastag i love vanila ^^
+    document.addEventListener('DOMContentLoaded', () => {
+        const navModal = document.querySelector("#navModal");
+        const menuBtn = document.querySelector("#menuBtn");
+        const closeBtn = document.querySelector("#closeBtn");
+        const navLinks = document.querySelectorAll("#navModal .nav-link");
 
-            menuBtn.addEventListener('click', () => {
-                navModal.classList.remove('hidden');
-                navModal.classList.add('show');
+        menuBtn.addEventListener('click', () => {
+            navModal.classList.remove('hidden');
+            navModal.classList.add('show');
 
-                //Ito yung pa isa isa sila naga baba
-                navLinks.forEach((link, i) => {
-                    setTimeout(() => {
-                        link.classList.add('show');
-                    }, i * 200);
-                });
-            });
-
-            closeBtn.addEventListener('click', () => {
-                navModal.classList.add('hidden');
-                navModal.classList.remove('show');
-                navLinks.forEach(link => link.classList.remove('show'));
+            //Ito yung pa isa isa sila naga baba
+            navLinks.forEach((link, i) => {
+                setTimeout(() => {
+                    link.classList.add('show');
+                }, i * 200);
             });
         });
 
+        closeBtn.addEventListener('click', () => {
+            navModal.classList.add('hidden');
+            navModal.classList.remove('show');
+            navLinks.forEach(link => link.classList.remove('show'));
+        });
 
+        // Cart click now routes directly via anchor link; no JS needed
+    });
 </script>
