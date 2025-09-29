@@ -222,4 +222,21 @@ class ProductController extends Controller
         return true;
     }
 
+    // Web page: show product details with related products
+    public function showPage(Product $product)
+    {
+        $product->load('category');
+        $relatedProducts = Product::with('category')
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view('components.menu-details', [
+            'product' => $product,
+            'relatedProducts' => $relatedProducts,
+        ]);
+    }
+
 }

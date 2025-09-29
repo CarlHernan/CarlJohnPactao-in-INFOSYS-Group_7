@@ -9,6 +9,8 @@
 
 @php
     $imgSrc = $image_path ?: asset('images/logo.png');
+    // Default to product details page when product_id is present and no explicit href provided
+    $href = $href ?? ($product_id ? route('menu.show', $product_id) : null);
 @endphp
 
 <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full">

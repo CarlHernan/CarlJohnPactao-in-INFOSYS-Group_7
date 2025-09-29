@@ -23,7 +23,11 @@ use App\Http\Controllers\CheckoutController;
 //public usr pages
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/home', [PageController::class, 'home'])->name('home');
+Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
+// Product detail page (after listing route)
+Route::get('/menu/{product}', [ProductController::class, 'showPage'])->name('menu.show');
+Route::get('/orders', [PageController::class, 'orders'])->name('orders');
 
 // Cart routes (public, session-based)
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
