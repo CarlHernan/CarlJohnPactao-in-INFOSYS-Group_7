@@ -46,7 +46,7 @@
                             </div>
                             @if (Route::has('password.request'))
                                 <a href="{{ route('password.request') }}" class="text-dark">
-                                    <i class="fa fa-lock m-r-5"></i> Forgot pwd?
+                                    <i class="fa fa-lock m-r-5"></i> Forgot password?
                                 </a>
                             @endif
                         </div>
@@ -73,13 +73,18 @@
                         </div>
                     </div>
 
+                    
                     <!-- Sign Up -->
-                    <div class="form-group m-b-0 m-t-10">
+
+                     <!-- disable natin to para para di maka sigin ang customer bali e seed 
+                     nalang ang admin account -->
+
+                    <!-- <div class="form-group m-b-0 m-t-10">
                         <div class="col-sm-12 text-center">
                             Don't have an account? 
                             <a href="{{ route('register') }}" class="text-info m-l-5"><b>Sign Up</b></a>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
             </div>
 
