@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -153,11 +154,9 @@ class ProductController extends Controller
 
             if ($file->isValid()) {
                 try {
-                    // Delete old image if exists
-                    if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
-                        Storage::disk('public')->delete($product->image_path);
-                    }
-
+                    // Store old image path before updating
+                    $oldImagePath = $product->image_path;
+                    
                     // Use move() instead of store() to avoid path issues
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $storagePath = storage_path('app/public/menu-images');
@@ -165,6 +164,10 @@ class ProductController extends Controller
                     $imagePath = 'menu-images/' . $filename;
 
                     $updateData['image_path'] = $imagePath;
+                    
+                    // Delete old image after successful upload
+                    $this->deleteOldImage($oldImagePath);
+                    
                 } catch (\Exception $e) {
                     return back()->withErrors(['image' => 'Failed to update image: ' . $e->getMessage()])->withInput();
                 }
@@ -202,6 +205,23 @@ class ProductController extends Controller
         return response()->json($featured);
     }
 
+    /**
+     * Delete old image from storage when product image is replaced
+     */
+    private function deleteOldImage($oldImagePath)
+    {
+        if ($oldImagePath && Storage::disk('public')->exists($oldImagePath)) {
+            try {
+                Storage::disk('public')->delete($oldImagePath);
+                return true;
+            } catch (\Exception $e) {
+                \Log::warning("Failed to delete old image: {$oldImagePath}. Error: " . $e->getMessage());
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Web page: show product details with related products
     public function showPage(Product $product)
     {
@@ -218,4 +238,5 @@ class ProductController extends Controller
             'relatedProducts' => $relatedProducts,
         ]);
     }
+
 }

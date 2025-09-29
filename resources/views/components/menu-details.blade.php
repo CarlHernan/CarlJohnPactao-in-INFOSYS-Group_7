@@ -1,5 +1,6 @@
 
 <x-layout>
+    <div style="background-color:#dddbd9; min-height:100vh;">
     <div class="max-w-7xl mx-auto px-4 py-8">
         <div class="mb-6">
             <a href="{{ url()->previous() ?: route('menu') }}" class="inline-flex items-center text-green-900 hover:text-green-800 font-medium">
@@ -137,6 +138,7 @@
                 @endforelse
             </div>
         </div>
+    </div>
     </div>
 
 
