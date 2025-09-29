@@ -10,7 +10,7 @@
         <div class="hidden md:flex items-center">
             <ul class="flex gap-8 rounded-md px-2 py-1 items-center">
                 <li>
-                    <a href="/home"
+                    <a href="/"
                        class="{{ request()->Is('home') ? 'text-emerald-900 underline underline-offset-3 transform transition-transform duration-150' : 'text-emerald-900 transform transition-transform duration-150 hover:scale-110 inline-block ' }} ">Home</a>
                 </li>
                 <li>
@@ -32,9 +32,9 @@
     </div>
 
     <div class="flex items-center ">
-        <button class="text-emerald-900 md:border-hidden border-r-1 border-gray-300 pr-1">
+        <a href="{{ route('cart.index') }}" class="text-emerald-900 md:border-hidden border-r-1 border-gray-300 pr-1">
             @include('components.icons.cart')
-        </button>
+        </a>
         <button id="menuBtn" class="md:hidden pl-1  text-emerald-900 border-black">
             @include('components.icons.hamburger')
         </button>
@@ -59,11 +59,11 @@
                             <li class="nav-link opacity-0"><a href="/menu" class="block hover:text-emerald-700">Products</a></li>
                             <li class="nav-link opacity-0"><a href="/orders" class="block hover:text-emerald-700">Orders</a></li>
                             <li class="nav-link opacity-0"><a href="/about" class="block hover:text-emerald-700">About</a></li>
+                            <li class="nav-link opacity-0"><a href="{{ route('cart.index') }}" class="block hover:text-emerald-700">Cart</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
-
 
 
 

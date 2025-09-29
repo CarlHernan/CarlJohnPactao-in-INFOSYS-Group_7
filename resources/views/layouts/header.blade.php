@@ -31,7 +31,7 @@
                 <div x-show="open" @click.outside="open = false"
                      class="absolute right-0 mt-2 w-48 bg-white text-gray-700 rounded-md shadow-lg py-1 z-50 border border-gray-200">
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('profile.edit') ? 'bg-blue-50 text-blue-700' : '' }}">My Profile</a>
-                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('profile.edit') ? 'bg-blue-50 text-blue-700' : '' }}">Settings</a>
+                    <a href="{{ route('admin.dashboard.settings') }}" class="block px-4 py-2 text-sm hover:bg-gray-100 {{ request()->routeIs('profile.edit') ? 'bg-blue-50 text-blue-700' : '' }}">Settings</a>
                     <div class="border-t border-gray-200"></div>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
