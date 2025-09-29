@@ -1,10 +1,10 @@
 <nav
     class="bg-transparent backdrop-blur-lg sticky top-0 inset-x-0 z-50 px-6 py-1 md:py-2 flex items-center justify-between font-montserrat border-0 shadow-md">
     <!-- ...rest of your navbar code... -->
-    <div class="flex items-center gap-1 mb-1  ">
-        <img src="{{ asset('images/logo.png') }}" alt="PingganPH logo" loading="lazy" class="h-6 ">
+    <a href="/home" class="flex items-center gap-1 mb-1" aria-label="Go to homepage">
+        <img src="{{ asset('images/logo.png') }}" alt="PingganPH logo" loading="lazy" class="h-6">
         <div class="font-bold text-lg mt-2 text-black">Pinggan<span class="text-emerald-800">PH</span></div>
-    </div>
+    </a>
 
     <div class="flex items-center md:gap-8 gap-2 ">
         <div class="hidden md:flex items-center">
@@ -39,20 +39,20 @@
             @include('components.icons.hamburger')
         </button>
 
-        
+
         {{--Ito yung modal para sa navlinks sa mobile if gusto nyu mag add nang desing go lng--}}
             <div id="navModal" class="hidden fixed inset-0 z-40 flex flex-col">
-            
+
                 <div id="modalBackdrop" class="absolute inset-0"></div>
 
-                
+
                 <div class="relative w-full bg-gray-100 shadow-md flex flex-col items-center py-10 animate-slideDown">
-                   
+
                     <button id="closeBtn" class="absolute top-5 right-6 text-2xl">
                         @include('components.icons.close')
                     </button>
 
-                    
+
                     <nav class="mt-10">
                         <ul class="text-2xl font-semibold text-gray-900 space-y-8 text-center">
                             <li class="nav-link opacity-0"><a href="/home" class="block hover:text-emerald-700">Home</a></li>
@@ -64,9 +64,7 @@
                 </div>
             </div>
 
-
-
-
+    </div>
 
 
 
