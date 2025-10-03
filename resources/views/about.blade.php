@@ -21,13 +21,13 @@
                     <p class="font-poppins text-gray-700 text-lg max-w-4xl mx-auto mb-16">PingganPH brings quality homemade Filipino meals straight to your hands. What started as a humble Karinderya in Kabacan is now online—serving you your favorite ulam, anytime, anywhere.</p>
 
                 <!-- mission statement -->
-                    <h2 class="font-merriweather text-6xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">Mission Statement</h3>
+                    <h2 class="font-merriweather text-6xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">Mission Statement</h2>
                     <p class="font-poppins text-gray-700 text-lg max-w-4xl mx-auto mb-16">Our mission is to make homestyle meals accessible to everyone, combining tradition with the convenience of modern technology.</p>
                 </section>
 
                 <!-- our story  -->
                 <section class="text-center">
-                    <h2 class="font-merriweather text-6xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">Our Story</h3>
+                    <h2 class="font-merriweather text-6xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">Our Story</h2>
                     <div class="space-y-6 text-lg font-merriweather text-gray-800 max-w-4xl mx-auto mb-8">
                         <p>PingganPH was born from a simple idea: to venture and order quality food accessible to everyone, anytime. It is a small local service yet it can connect hundreds of food lovers.</p>
                         <p>We've revolutionized the way people experience in ordering food by focusing on speed, quality, and an extensive selection of cuisines from the local eatery.</p>
