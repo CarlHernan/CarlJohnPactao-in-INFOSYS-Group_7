@@ -31,3 +31,38 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
+
+/* and pag hulog sang container */
+/* @keyframes dropDown {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  } */
+  
+  /* mag baba na daw ga amat amat kita */
+  @keyframes slideLink {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  #navModal.show {
+    animation: dropDown 0.4s ease forwards;
+  }
+  
+  #navModal .nav-link.show {
+    animation: slideLink 0.5s ease forwards;
+  }   
+  
+  
+  
